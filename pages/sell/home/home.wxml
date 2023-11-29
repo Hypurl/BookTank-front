@@ -1,0 +1,61 @@
+<header text="SELL"></header>
+
+<view style="padding:30rpx; padding-top:0rpx">
+  <view style="margin-bottom:15rpx">
+    <text class="text-xxl">{{translate["Reserved"]}}</text>
+    <text bindtap="viewAll" data-status="Reserved" class="fr text-grey" style="line-height:65rpx; padding-right:15rpx">{{translate["View All"]}}</text>
+  </view>
+  <scroll-view scroll-x style="white-space:nowrap; height:230rpx; background-color:#dbf4e8; border-radius:24rpx; padding-left:15rpx">
+    <mini-product bindtap="viewProductModal" data-id="{{item.productID}}" wx:for="{{reserved}}" wx:key="productID" productID="{{item.productID}}"></mini-product>
+  </scroll-view>
+</view>
+
+<view style="padding:30rpx; padding-top:0rpx">
+  <view style="margin-bottom:15rpx">
+    <text class="text-xxl">{{translate["Selling"]}}</text>
+    <text bindtap="viewAll" data-status="Selling" class="fr text-grey" style="line-height:65rpx; padding-right:15rpx">{{translate["View All"]}}</text>
+  </view>
+  <scroll-view scroll-x style="white-space:nowrap; height:230rpx; background-color:#dbf4e8; border-radius:24rpx; padding-left:15rpx">
+    <mini-product bindtap="viewProductModal" data-id="{{item.productID}}" wx:for="{{selling}}" wx:key="productID" productID="{{item.productID}}"></mini-product>
+  </scroll-view>
+</view>
+
+<view style="padding:0rpx 30rpx 130rpx 30rpx">
+  <view class="text-xxl" style="margin-bottom:15rpx">{{translate["My Items"]}}</view>
+  <view class="fl" style="width:calc(50% - 15rpx)">
+    <item id="item" wx:for="{{items}}" wx:key="*this" wx:if="{{index%2==0}}" itemID="{{item}}" editButton="{{selectedItemsCount==0}}" selected="{{selectedItems[index]}}" bind:selectItem="selectItem" data-index="{{index}}"></item>
+  </view>
+  <view class="fr" style="width:calc(50% - 15rpx)">
+    <item id="item" wx:for="{{items}}" wx:key="*this" wx:if="{{index%2==1}}" itemID="{{item}}" editButton="{{selectedItemsCount==0}}" selected="{{selectedItems[index]}}" bind:selectItem="selectItem" data-index="{{index}}"></item>
+  </view>
+  <view style="clear:both"></view>
+</view>
+
+<button bindtap="{{selectedItemsCount>0?'deleteItems':'addItem'}}" class="cu-btn icon" style="z-index:10; position:fixed; bottom:145rpx; right:30rpx; width:100rpx; height:100rpx; background-color:#ffa96d">
+  <text class="{{selectedItemsCount>0?'cuIcon-delete':'cuIcon-add'}} text-white text-bold" style="font-size:50rpx"></text>
+</button>
+<button wx:if="{{selectedItemsCount>0}}" bindtap="showSellModal" class="cu-btn lg text-white" style="z-index:10; width:calc(100% - 190rpx); border-radius:24rpx; background-color:#ffa96d; position:fixed; bottom:145rpx; left:30rpx">{{translate[selectedItemsCount>=2?"SELL TOGETHER":"SELL"]}}</button>
+
+<view wx:if="{{sellModal}}" bindtap="hideSellModal" id="gray-area" class="flex align-center justify-center" style="position:fixed; top:0rpx; background-color:rgba(0, 0, 0, 0.5); width:100%; height:100%; z-index:10000">
+  <form bindsubmit="{{editing?'edit':'sell'}}" class="cu-dialog" style="background-color:#cbe9d9; border-radius:24rpx; padding-top:30rpx">
+    <view wx:if="{{selectedItemsCount>=2||(editing&&name)}}" class="cu-form-group text-right" style="border-radius:24rpx; margin:30rpx; margin-top:0rpx; background-color:white; {{invalidName?'border:5rpx solid #ff0000':''}}">
+      <view class="title">{{translate["Name"]}}</view>
+      <input maxlength="50" value="{{name}}" name="name"></input>
+    </view>
+    <view class="cu-form-group text-right" style="border-radius:24rpx; margin:30rpx; margin-top:0rpx; background-color:white; {{invalidPrice?'border:5rpx solid #ff0000':''}}">
+      <view class="title">{{translate["Price"]}}</view>
+      <input maxlength="5" value="{{price}}" name="price" type="number"></input>¥
+    </view>
+    <view class="padding" style="border-radius:24rpx; margin:0rpx 30rpx; background-color:white; font-size:30rpx">
+      {{translate["Additional Information"]}}
+      <textarea maxlength="-1" value="{{additionalInformation}}" name="additional-information" style="width:100%; margin-top:15rpx"></textarea>
+    </view>
+    <view class="cu-form-group" style="background-color:#cbe9d9">
+      <button form-type="submit" class="text-white cu-btn margin lg" style="width:100%; border-radius:24rpx; background-color:#ffa96d">{{translate["SUBMIT"]}}</button>
+    </view>
+  </form>
+</view>
+
+<product-modal wx:if="{{productModal}}" bind:hideProductModal="hideProductModal" productID="{{productModalID}}"></product-modal>
+
+<confirm wx:if="{{confirmModal}}" bind:hideConfirmModal="hideConfirmModal"></confirm>

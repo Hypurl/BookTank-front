@@ -1,0 +1,17 @@
+<view wx:if="{{currentPage=='enter'}}">
+  <image src="/images/others/animation.gif" mode="widthFix" style="width:100%; transform:translate(-50%, -50%) scale(1.2); position:fixed; top:50%; left:50%"></image>
+  <button class="text-white cu-btn lg" style="position:fixed; bottom:30rpx; left:30rpx; width:calc(100% - 60rpx); border-radius:24rpx; background-color:#ffa96d" bindtap="enter">{{translate["ENTER"]}}</button>
+</view>
+
+<browse wx:if="{{currentPage=='browse'}}" bind:updateNewMessages="updateNewMessages"></browse>
+<sell wx:if="{{currentPage=='sell'}}" id="sell"></sell>
+<buy wx:if="{{currentPage=='buy'}}" id="buy"></buy>
+<chats wx:if="{{currentPage=='chats'}}" id="chats" bind:redirectBuy="redirectBuy" bind:showRegisterModal="showRegisterModal"></chats>
+
+<view style="height:115rpx" wx:if="{{currentPage!='browse'}}"></view>
+<view wx:if="{{currentPage && currentPage!='enter'}}" class="flex justify-around bg-white" style="width:calc(100% - 180rpx); border-radius:48rpx; position:fixed; bottom:15rpx; left:90rpx; z-index:20; box-shadow:0rpx 0rpx 30rpx #aaaaaa; padding:15rpx 30rpx">
+  <view wx:for="{{pages}}"><image src="/images/tabbar/{{item}}{{currentPage==item?'-orange':''}}.png" mode="aspectFill" style="display:block; width:70rpx; height:70rpx" bindtap="changePage" data-page="{{item}}"></image></view>
+  <view wx:if="{{newMessages}}" class="cu-tag round text-white sm" style="position:fixed; bottom:75rpx; right:140rpx; z-index:20; background-color:#ffa96d">{{newMessages}}</view>
+</view>
+
+<register wx:if="{{registerModal}}" bind:hideRegisterModal="hideRegisterModal"></register>

@@ -1,0 +1,31 @@
+<scroll-view scroll-y style="height:99.9vh" bindscrolltolower="addProducts" bindrefresherrefresh="refresh" refresher-enabled="true" refresher-triggered="{{refreshing}}">
+  <header text="BROWSE"></header>
+  <view class="cu-bar search" style="box-shadow:none">
+    <view class="search-form" style="border-radius:24rpx; height:80rpx; padding:0rpx 15rpx; background-color:white">
+      <text class="cuIcon-search"></text>
+      <input class="margin-left-xs" style="padding:0rpx" placeholder="{{translate['Search']}}" confirm-type="search" bindinput="search" bindconfirm="search" bindfocus="search" bindblur="showProducts"></input>
+    </view>
+  </view>
+  <swiper wx:if="{{!searching}}" class="card-swiper" circular="true" current="{{currentCard}}" bindtap="selectCategory" bindchange="switchCard" style="position:relative; top:-20rpx"	previous-margin="1rpx">
+    <swiper-item wx:for="{{categories}}" class="{{currentCard==index?'cur':''}}">
+      <view id="{{index}}" class="swiper-item">
+        <image src="/images/swiper/{{images[index]}}" style="border-radius:24rpx"></image>
+      </view>
+    </swiper-item>
+  </swiper>
+  <view style="position:relative; top:{{searching?'25rpx':'-60rpx'}}; margin-bottom:30rpx; padding:0rpx 30rpx">
+    <view class="text-center" style="white-space:nowrap; overflow:scroll; border-radius:24rpx; height:80rpx; background-color:white; padding:10rpx 0rpx">
+      <view bindtap="toggleYear" data-year="{{thisYear - index}}" wx:for="{{thisYear - 2019 + 1}}" style="display:inline-block; margin-left:10rpx; width:190rpx; border-radius:24rpx; font-size:36rpx; line-height:60rpx; {{includeYear[thisYear - index]?'background-color:#ffa96d; color:white':''}}">{{thisYear - index}}</view>
+      <view style="display:inline-block; width:10rpx"></view>
+    </view>
+  </view>
+  <view style="position:relative; top:{{searching?'25rpx':'-60rpx'}}">
+    <view class="fl" style="width:calc(50% - 15rpx); padding-left:30rpx">
+      <product wx:for="{{products}}" wx:key="*this" wx:if="{{index%2==0}}" productID="{{item}}" new="{{!searching && index < newProducts}}" bindtap="view" data-id="{{item}}"></product>
+    </view>
+    <view class="fr" style="width:calc(50% - 15rpx); padding-right:30rpx">
+      <product wx:for="{{products}}" wx:key="*this" wx:if="{{index%2==1}}" productID="{{item}}" new="{{!searching && index < newProducts}}" bindtap="view" data-id="{{item}}"></product>
+    </view>
+  </view>
+  <view style="clear:both; height:{{searching?'140rpx':'60rpx'}}"></view>
+</scroll-view>

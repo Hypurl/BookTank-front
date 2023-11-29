@@ -1,0 +1,10 @@
+<view class="text-center" style="margin-bottom:30rpx; border-radius:24rpx; background-color:white">
+  <view wx:if="{{editButton}}" bindtap="edit" style="position:absolute; margin-top:15rpx; margin-left:15rpx; width:50rpx; height:50rpx; line-height:50rpx; background-color:#ffa96d; z-index:1; border-radius:50%">
+    <text class="cuIcon-write text-white text-bold"></text>
+  </view>
+  <view bindtap="selectItem" style="position:absolute; margin-top:15rpx; margin-left:calc(50vw - 110rpx); width:50rpx; height:50rpx; line-height:50rpx; background-color:{{selected?'#ffa96d':'white'}}; z-index:1; border-radius:50%">
+    <text class="cuIcon-check text-white text-bold"></text>
+  </view>
+  <image bindtap="selectItem" src="{{address?address+'/static/compressed-images/'+item.images[0]:''}}" style="width:calc(50vw - 45rpx); height:calc(50vw - 45rpx); border-top-left-radius:24rpx; border-top-right-radius:24rpx" mode="aspectFill"></image>
+  <view bindtap="selectItem" class="padding" style="word-wrap:break-word">{{item.name}}</view>
+</view>

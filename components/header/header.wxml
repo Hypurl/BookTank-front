@@ -1,0 +1,8 @@
+<view class="cu-custom" style="height:calc({{CustomBar}}px + 10rpx)">
+  <view class="cu-bar" style="height:calc({{CustomBar}}px + 10rpx); padding-top:{{StatusBar}}px">
+    <view class="action">
+      <text class="cuIcon-titles text-black"></text>
+      <view class="text-black text-xxl text-bold">{{translate[text]}}</view>
+    </view>
+  </view>
+</view>

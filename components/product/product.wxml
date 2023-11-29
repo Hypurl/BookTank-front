@@ -1,0 +1,13 @@
+<view class="text-center text-df" style="border-radius:24rpx; background-color:white; width:calc(50vw - 45rpx); {{chat?'margin:10rpx auto; box-shadow:0rpx 0rpx 10rpx #aaaaaa':'margin-bottom:30rpx'}}">
+  <view wx:if="{{new}}" class="text-white" style="position:absolute; z-index:1; margin-left:calc((100vw - 90rpx) / 2 - {{Chinese?'40rpx':'75rpx'}}); margin-top:-10rpx; background-color:#ff0000; border-radius:24rpx; padding:10rpx 15rpx">{{translate["NEW"]}}</view>
+  <view class="cu-avatar" style="position:absolute; z-index:1; margin-left:calc(-25rpx - (50vw - 90rpx) / 2); background-image:url({{address}}/static/profile-pictures/{{profilePicture}}); border-radius:50%; width:60rpx; height:60rpx; border:7.5rpx solid #ffffff; background-color:#ffffff"></view>
+  <view class="text-left" style="font-size:0rpx; height:calc(50vw - 45rpx)">
+    <image lazy-load="true" wx:if="{{product.images.length==1}}" src="{{address?address+'/static/compressed-images/'+product.images[0]:''}}" style="width:calc(50vw - 75rpx); height:calc(50vw - 75rpx); margin:15rpx; border-radius:24rpx" mode="aspectFill"></image>
+    <image lazy-load="true" wx:if="{{product.images.length>1}}" wx:for="{{product.images}}" src="{{address?address+'/static/compressed-images/'+item:''}}" style="width:calc((50vw - 90rpx) / 2); height:calc((50vw - 90rpx) / 2); margin:15rpx 0rpx 0rpx 15rpx; border-radius:24rpx" mode="aspectFill"></image>
+  </view>
+  <view style="padding:15rpx 30rpx 0rpx 30rpx; word-wrap:break-word">{{product.name}}</view>
+  <view wx:if="{{!status}}" class="fl padding">{{product.items.length}} {{translate[product.items.length>1?'Items':'Item']}}</view>
+  <view wx:if="{{status}}" class="fl {{color}} light" style="border-radius:24rpx; padding:10rpx 15rpx; margin:20rpx 15rpx">{{translate[status]}}</view>
+  <view class="fr" style="background-color:#ffc500; border-radius:24rpx; padding:10rpx 15rpx; margin:20rpx 15rpx">¥{{product.price}}</view>
+  <view style="clear:both"></view>
+</view>

@@ -1,0 +1,14 @@
+<view wx:if="{{!confirmModal}}" bindtap="hideProductModal" id="gray-area" class="flex align-center justify-center" style="position:fixed; top:0rpx; background-color:rgba(0, 0, 0, 0.5); width:100%; height:100%; z-index:10000">
+  <view class="cu-dialog padding" style="background-color:white; border-radius:24rpx">
+    <button bindtap="viewProduct" class="text-white cu-btn lg" style="width:100%; border-radius:24rpx; background-color:#ffa96d">{{translate["VIEW"]}}</button>
+    <button bindtap="editProduct" wx:if="{{product.seller==userID&&product.status=='Selling'}}" class="text-white cu-btn lg margin-top" style="width:100%; border-radius:24rpx; background-color:#ffa96d">{{translate[product.items.length>1?'EDIT NAME & PRICE':'EDIT PRICE']}}</button>
+    <button bindtap="deleteProduct" wx:if="{{product.seller==userID&&product.status=='Selling'}}" class="text-white cu-btn lg margin-top" style="width:100%; border-radius:24rpx; background-color:#ffa96d">{{translate["MOVE TO MY ITEMS"]}}</button>
+    <button bindtap="deleteProductCompletely" wx:if="{{product.seller==userID&&product.status=='Selling'}}" class="text-white cu-btn lg margin-top" style="width:100%; border-radius:24rpx; background-color:#ffa96d">{{translate["DELETE COMPLETELY"]}}</button>
+    <button bindtap="contactBuyer" wx:if="{{product.seller==userID&&product.status=='Reserved'}}" class="text-white cu-btn lg margin-top" style="width:100%; border-radius:24rpx; background-color:#ffa96d">{{translate["CONTACT BUYER"]}}</button>
+    <button bindtap="contactSeller" wx:if="{{product.seller!=userID}}" class="text-white cu-btn lg margin-top" style="width:100%; border-radius:24rpx; background-color:#ffa96d">{{translate["CONTACT SELLER"]}}</button>
+    <button bindtap="cancelReservation" wx:if="{{product.status=='Reserved'&&(product.seller==userID||product.buyer==userID)}}" class="text-white cu-btn lg margin-top" style="width:100%; border-radius:24rpx; background-color:#ffa96d">{{translate["CANCEL RESERVATION"]}}</button>
+    <button bindtap="deleteReservation" wx:if="{{product.seller!=userID&&product.buyer!=userID}}" class="text-white cu-btn lg margin-top" style="width:100%; border-radius:24rpx; background-color:#ffa96d">{{translate["REMOVE"]}}</button>
+  </view>
+</view>
+
+<confirm wx:if="{{confirmModal}}" bind:hideConfirmModal="hideConfirmModal"></confirm>

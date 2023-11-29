@@ -1,0 +1,56 @@
+<back-header text="{{translate[edit?'EDIT ITEM':'ADD ITEM']}}"></back-header>
+<scroll-view scroll-x class="nav">
+  <view class="cu-item {{item==currentTab?'text-black':'text-grey'}}" style="height:40rpx; line-height:40rpx" wx:for="{{categories}}" bindtap="selectCategory" data-category="{{item}}">{{translate[item]}}</view>
+</scroll-view>
+<form bindsubmit="submit">
+  <view wx:if="{{currentTab=='School Books'}}" class="cu-form-group" style="border-radius:24rpx; margin:30rpx; margin-top:20rpx; background-color:white; {{invalidBook?'border:5rpx solid #ff0000':''}}">
+    <view class="title">{{translate["Book"]}}</view>
+    <picker mode="multiSelector" bindcolumnchange="changeBook" value="{{bookIndexes}}" range="{{bookArray}}">
+      <view class="picker {{bookLabel?'':'text-white'}}" bindtap="showBookLabel">{{bookArray[2][bookIndexes[2]]}}</view>
+    </picker>
+  </view>
+  <view wx:if="{{currentTab!='School Books'}}" class="cu-form-group text-right" style="border-radius:24rpx; margin:30rpx; margin-top:20rpx; background-color:white; {{invalidName?'border:5rpx solid #ff0000':''}}">
+    <view class="title">{{translate["Name"]}}</view>
+    <input name="name" maxlength="50" value="{{itemName}}"></input>
+  </view>
+  <view wx:if="{{currentTab=='Prep Books'}}" class="cu-form-group" style="border-radius:24rpx; margin:30rpx; margin-top:0rpx; background-color:white; {{invalidExam?'border:5rpx solid #ff0000':''}}">
+    <view class="title">{{translate["Exam"]}}</view>
+    <picker bindchange="changeExam" value="{{exam}}" range="{{exams}}">
+      <view class="picker {{examLabel?'':'text-white'}}">{{exams[exam]}}</view>
+    </picker>
+  </view>
+  <view wx:if="{{currentTab!='Other Items'}}" class="cu-form-group text-right" style="border-radius:24rpx; margin:30rpx; margin-top:0rpx; background-color:white; {{invalidISBN?'border:5rpx solid #ff0000':''}}">
+    <view class="title">ISBN</view>
+    <input name="isbn" maxlength="13" type="number" value="{{itemISBN}}"></input>
+  </view>
+  <view class="cu-form-group" style="border-radius:24rpx; margin:30rpx; margin-top:0rpx; background-color:white; {{invalidCondition?'border:5rpx solid #ff0000':''}}">
+    <view class="title">{{translate["Condition"]}}</view>
+    <picker bindchange="changeCondition" value="{{condition}}" range="{{conditions}}">
+      <view class="picker {{conditionLabel?'':'text-white'}}">{{translate[conditions[condition]]}}</view>
+    </picker>
+  </view>
+  <view style="border-radius:24rpx; margin:30rpx; margin-top:0rpx; background-color:white; {{invalidPhotos?'border:5rpx solid #ff0000':''}}">
+    <view class="cu-bar">
+      <view class="action">{{translate["Photos"]}}</view>
+      <view class="action">{{imageList.length}}/4</view>
+    </view>
+    <view class="cu-form-group" style="border-radius:24rpx; padding-bottom:20rpx">
+      <view class="grid col-4 grid-square flex-sub">
+        <view class="bg-img" wx:for="{{imageList}}" bindtap="viewImage" data-index="{{index}}">
+          <image src="{{item}}" mode="aspectFill"></image>
+          <view class="cu-tag bg-red" catchtap="deleteImage" data-index="{{index}}">
+            <text class="cuIcon-close"></text>
+          </view>
+        </view>
+        <view class="solids" bindtap="chooseImage" wx:if="{{imageList.length<4}}">
+          <text class="cuIcon-cameraadd"></text>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{currentTab!='Other Items'}}" class="text-grey text-sm" style="position:relative; top:-20rpx; right:-30rpx">
+      <text class="cuIcon-infofill margin-right-xs"></text> {{translate["Front Cover, Back Cover, ISBN"]}}
+    </view>
+  </view>
+  <button class="text-white cu-btn lg" style="position:fixed; bottom:30rpx; left:30rpx; width:calc(100% - 60rpx); border-radius:24rpx; background-color:#ffa96d" form-type="submit">{{translate["SUBMIT"]}}</button>
+</form>
+<view style="height:110rpx"></view>

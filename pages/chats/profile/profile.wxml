@@ -1,0 +1,29 @@
+<back-header></back-header>
+
+<view class="text-center" style="margin-top:10rpx">
+  <view class="cu-avatar" style="background-image:url({{address?address+'/static/profile-pictures/'+user.profilePicture:''}}); border-radius:50%; background-color:transparent; width:200rpx; height:200rpx"></view>
+  <view bindtap="copy" data-value="{{user.name}}" class="text-xxl" style="margin-top:30rpx; margin-bottom:60rpx">{{user.name}}</view>
+  <view wx:if="{{user.identity}}" class="text-xl" style="padding:0rpx 60rpx">
+    <view class="fl">{{translate["Identity"]}}</view>
+    <view class="fr">{{translate[user.identity]}}</view>
+    <view style="clear:both"></view>
+  </view>
+  <view wx:if="{{user.wechatID}}" class="text-xl margin-top" style="padding:0rpx 60rpx">
+    <view class="fl">{{translate["WeChat ID"]}}</view>
+    <view bindtap="copy" data-value="{{user.wechatID}}" class="fr">{{user.wechatID}}</view>
+    <view style="clear:both"></view>
+  </view>
+</view>
+
+<view style="margin-top:60rpx">
+  <view class="fl" style="width:calc(50% - 15rpx); padding-left:30rpx">
+    <product id="product" bindtap="viewProduct" data-id="{{item}}" wx:for="{{products}}" wx:key="productID" wx:if="{{index%2==0}}" productID="{{item}}"></product>
+  </view>
+  <view class="fr" style="width:calc(50% - 15rpx); padding-right:30rpx">
+    <product id="product" bindtap="viewProduct" data-id="{{item}}" wx:for="{{products}}" wx:key="productID" wx:if="{{index%2==1}}" productID="{{item}}"></product>
+  </view>
+  <view style="clear:both"></view>
+</view>
+<view style="height:{{messageButton?'110rpx':'0rpx'}}"></view>
+
+<button wx:if="{{messageButton}}" bindtap="message" class="text-white cu-btn lg" style="position:fixed; bottom:30rpx; left:30rpx; width:calc(100% - 60rpx); border-radius:24rpx; background-color:#ffa96d; z-index:10000">{{translate["MESSAGE"]}}</button>

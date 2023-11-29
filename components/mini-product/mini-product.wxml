@@ -1,0 +1,4 @@
+<view style="border-radius:24rpx; background-color:white; margin:15rpx; margin-left:0rpx; width:200rpx; height:200rpx; display:inline-block; vertical-align:top; white-space:pre-wrap; font-size:0rpx">
+  <image wx:if="{{product.images.length==1}}" src="{{address?address+'/static/compressed-images/'+product.images[0]:''}}" style="width:180rpx; height:180rpx; margin:10rpx; border-radius:24rpx" mode="aspectFill"></image>
+  <image wx:if="{{product.images.length>1}}" wx:for="{{product.images}}" src="{{address?address+'/static/compressed-images/'+item:''}}" style="width:85rpx; height:85rpx; margin:10rpx 0rpx 0rpx 10rpx; border-radius:24rpx" mode="aspectFill"></image>
+</view>

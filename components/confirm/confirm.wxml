@@ -1,0 +1,6 @@
+<view bindtap="hideConfirmModal" id="gray-area" class="flex align-center justify-center" style="position:fixed; top:0rpx; background-color:rgba(0, 0, 0, 0.5); width:100%; height:100%; z-index:10000">
+  <view class="cu-dialog padding" style="background-color:white; border-radius:24rpx">
+    <button id="confirm" class="fl text-white cu-btn lg" style="width:calc(50% - 15rpx); border-radius:24rpx; background-color:#ffa96d">{{translate["CONFIRM"]}}</button>
+    <button id="gray-area" class="fr text-black cu-btn lg" style="width:calc(50% - 15rpx); border-radius:24rpx; background-color:transparent">{{translate["CANCEL"]}}</button>
+  </view>
+</view>

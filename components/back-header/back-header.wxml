@@ -1,0 +1,8 @@
+<view class="text-xxl text-bold" style="height:calc({{CustomBar}}px + 10rpx); padding-top:calc(({{CustomBar}}px + 10rpx - {{StatusBar}}px) / 2 + {{StatusBar}}px - 25rpx)">
+  <view style="position:absolute; left:15rpx">
+    <text bindtap="navigateBack" class="cuIcon-back"></text>
+  </view>
+  <view class="text-center">
+    <text bindtap="triggerFunction">{{text}}</text>
+  </view>
+</view>

@@ -1,0 +1,51 @@
+<back-header text="{{contact.name}}" bind:triggerFunction="viewProfile" data-id="{{contactID}}"></back-header>
+<scroll-view scroll-y scroll-top="{{scrollTop}}" style="opacity:{{scrollTop?1:0}}; height:calc(100vh - ({{CustomBar}}px + 10rpx) - 100rpx - {{keyboardHeight}}px)">
+  <view class="cu-chat" id="chat" style="padding-bottom:30rpx">
+    <view wx:for="{{messages}}" wx:for-item="message">
+
+      <view wx:if="{{message[2]=='Text'}}" class="cu-item {{message[0]==userID?'self':''}}" style="padding-bottom:0rpx">
+        <view wx:if="{{message[0]==contactID}}" bindtap="viewProfile" data-id="{{contactID}}" class="cu-avatar" style="background-image:url({{address}}/static/profile-pictures/{{contact.profilePicture}}); border-radius:24rpx; background-color:transparent"></view>
+        <view class="main" bindlongtap="copy" data-value="{{message[1]}}">
+          <view class="content" style="{{message[0]==userID?'background-color:#ffa96d; color:white':''}}">
+            <text style="width:100%; word-wrap:break-word">{{message[1]}}</text>
+          </view>
+        </view>
+        <view wx:if="{{message[0]==userID}}" bindtap="viewProfile" data-id="{{userID}}" class="cu-avatar" style="background-image:url({{address}}/static/profile-pictures/{{user.profilePicture}}); border-radius:24rpx; background-color:transparent"></view>
+      </view>
+
+      <view wx:if="{{message[2]=='Image' || message[2]=='Payment Code'}}" class="cu-item {{message[0]==userID?'self':''}}" style="padding-bottom:0rpx">
+        <view wx:if="{{message[0]==contactID}}" bindtap="viewProfile" data-id="{{contactID}}" class="cu-avatar" style="background-image:url({{address}}/static/profile-pictures/{{contact.profilePicture}}); border-radius:24rpx; background-color:transparent"></view>
+        <view class="main">
+          <image bindtap="{{message[2]=='Image'?'viewImage':'viewPayment'}}" data-url="{{address}}/static/{{message[2]=='Image'?'images':'qr-codes'}}/{{message[1]}}" src="{{address}}/static/compressed-images/{{message[1]}}" mode="aspectFit" style="width:35vw; height:35vw"></image>
+        </view>
+        <view wx:if="{{message[0]==userID}}" bindtap="viewProfile" data-id="{{userID}}" class="cu-avatar" style="background-image:url({{address}}/static/profile-pictures/{{user.profilePicture}}); border-radius:24rpx; background-color:transparent"></view>
+      </view>
+
+      <view wx:if="{{message[2]=='Reserve'}}" class="cu-info text-center" style="display:block; margin:30rpx auto 0rpx auto; border-radius:24rpx; background-color:white; color:black">
+        {{message[0]==userID?user.name:contact.name}}{{translate[" reserved "]}}{{message[0]==userID?contact.name:user.name}}{{translate["'s"]}}
+        <product bindtap="viewProduct" data-id="{{message[1]}}" productID="{{message[1]}}" chat="true"></product>
+      </view>
+
+      <view wx:if="{{message[2]=='Cancel'}}" class="cu-info text-center" style="display:block; margin:30rpx auto 0rpx auto; border-radius:24rpx; background-color:white; color:black">
+        {{message[0]==userID?user.name:contact.name}}{{translate[" cancelled the reservation for "]}}<text class="text-blue" bindtap="viewProduct" data-id="{{message[1]}}">{{products[message[1]].name}}</text>
+      </view>
+
+      <view wx:if="{{message[2]=='Date'}}" class="cu-info text-center" style="display:block; margin:30rpx auto 0rpx auto; background-color:transparent; color:black">
+        {{message[1]}}
+      </view>
+
+    </view>
+  </view>
+</scroll-view>
+<view class="cu-bar foot input" style="bottom:{{keyboardHeight}}px">
+  <view class="action"><text class="cuIcon-qr_code" bindtap="viewPaymentModal"></text></view>
+  <input class="solid-bottom" bindfocus="raiseInput" bindblur="lowerInput" adjust-position="{{false}}" value="{{input}}" confirm-type="send" confirm-hold="true" bindconfirm="send"></input>
+  <view class="action"><text class="cuIcon-pic" bindtap="sendImages"></text></view>
+</view>
+
+<view wx:if="{{paymentModal}}" bindtap="hidePaymentModal" id="gray-area" class="flex align-center justify-center" style="position:fixed; top:0rpx; background-color:rgba(0, 0, 0, 0.5); width:100%; height:100%; z-index:10000">
+  <view class="cu-dialog padding" style="background-color:#cbe9d9; border-radius:24rpx; font-size:0rpx">
+    <image bindtap="setPaymentCode" src="{{user.paymentCode?address+'/static/compressed-images/'+user.paymentCode:'/images/others/payment-code-template.jpg'}}" style="border-radius:24rpx; background-color:#dbf4e8; {{invalidPaymentCode?'border:5rpx solid #ff0000':''}}" mode="widthFix"></image>
+    <button bindtap="sendPaymentCode" class="text-white cu-btn lg margin-top" style="width:100%; border-radius:24rpx; background-color:#ffa96d">{{translate["SEND"]}}</button>
+  </view>
+</view>

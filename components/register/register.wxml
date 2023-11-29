@@ -1,0 +1,29 @@
+<view bindtap="hideRegisterModal" id="gray-area" class="flex align-center justify-center" style="position:fixed; top:0rpx; background-color:rgba(0, 0, 0, 0.5); width:100%; height:100%; z-index:10000">
+  <view class="cu-dialog" style="background-color:#cbe9d9; border-radius:24rpx">
+    <view class="cu-form-group text-right" style="border-radius:24rpx; margin:30rpx; background-color:white; {{invalidFirstName?'border:5rpx solid #ff0000':''}}">
+      <view class="title">{{translate["First Name"]}}</view>
+      <input maxlength="20" value="{{firstName}}" bindinput="storeFirstName"></input>
+    </view>
+    <view class="cu-form-group text-right" style="border-radius:24rpx; margin:30rpx; margin-top:0rpx; background-color:white; {{invalidLastName?'border:5rpx solid #ff0000':''}}">
+      <view class="title">{{translate["Last Name"]}}</view>
+      <input maxlength="20" value="{{lastName}}" bindinput="storeLastName"></input>
+    </view>
+    <view class="cu-form-group" style="border-radius:24rpx; margin:30rpx; margin-top:0rpx; background-color:white; {{invalidIdentity?'border:5rpx solid #ff0000':''}}">
+      <view class="title">{{translate["Identity"]}}</view>
+      <picker bindchange="storeIdentity" range="{{identities}}">
+        <view class="picker {{identityLabel?'':'text-white'}}">{{translate[identities[identity]]}}</view>
+      </picker>
+    </view>
+    <view class="cu-form-group text-right" style="border-radius:24rpx; margin:0rpx 30rpx; background-color:white; {{invalidWeChatID?'border:5rpx solid #ff0000':''}}">
+      <view class="title">{{translate["WeChat ID"]}}</view>
+      <input value="{{wechatID}}" bindinput="storeWeChatID"></input>
+    </view>
+    <view wx:if="{{register}}" class="text-center margin-top margin-bottom" style="position:relative; left:-10rpx; height:30rpx">
+      <checkbox bindtap="checkboxChange" checked="{{checked}}" class="round orange" style="transform:scale(0.7)"></checkbox>
+      <view class="text-sm" style="display:inline-block">{{translate["Accept"]}} <text bindtap="viewUserServicesAgreement" class="text-blue">{{translate["User Services Agreement"]}}</text> & <text bindtap="viewPrivacyPolicy" class="text-blue">{{translate["Privacy Policy"]}}</text></view>
+    </view>
+    <view class="cu-form-group" style="border-top:0rpx; background-color:#cbe9d9">
+      <button bindtap="submitUserInfo" class="text-white cu-btn margin lg" style="width:100%; border-radius:24rpx; background-color:#ffa96d">{{translate[register?"REGISTER":"SUBMIT"]}}</button>
+    </view>
+  </view>
+</view>

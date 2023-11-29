@@ -1,0 +1,43 @@
+<header text="CHATS"></header>
+<view class="flex align-center" style="padding:10rpx 30rpx 0rpx 30rpx">
+  <view bindtap="updateProfilePicture" data-id="{{userID}}" class="cu-avatar lg" style="background-image:url({{address}}/static/profile-pictures/{{user.profilePicture}}); border-radius:24rpx; background-color:transparent"></view>
+  <view bindtap="viewProfile" data-id="{{userID}}" class="text-xxl margin-left">{{user.name}}</view>
+  <view style="position:absolute; right:30rpx; font-size:44rpx">
+    <button bindtap="viewSettings" bindlongtap="viewAdminModal" class="cuIcon-settings" style="width:min-content; padding:0rpx; font-weight:normal; background-color:transparent"></button>
+  </view>
+</view>
+<view class="grid col-4 text-center padding">
+  <view bindtap="viewAll" data-status="Selling" class="text-xl">{{selling}}</view>
+  <view bindtap="viewAll" data-status="Reserved" class="text-xl">{{reserved}}</view>
+  <view bindtap="redirectBuy" data-tab="Reserving" class="text-xl">{{reserving}}</view>
+  <view bindtap="redirectBuy" data-tab="Bookmarks" class="text-xl">{{bookmarks}}</view>
+  <view bindtap="viewAll" data-status="Selling">{{translate["Selling"]}}</view>
+  <view bindtap="viewAll" data-status="Reserved">{{translate["Reserved"]}}</view>
+  <view bindtap="redirectBuy" data-tab="Reserving">{{translate["Reserving"]}}</view>
+  <view bindtap="redirectBuy" data-tab="Bookmarks">{{translate["Bookmarks"]}}</view>
+</view>
+<view class="cu-list menu-avatar margin-top">
+  <view bindtap="chat" data-id="{{item.contactID}}" wx:for="{{contacts}}" class="cu-item" style="border-radius:24rpx; margin:30rpx; margin-top:0rpx; background-color:white">
+    <view class="cu-avatar lg" style="background-image:url({{address}}/static/profile-pictures/{{item.contact.profilePicture}}); border-radius:24rpx; background-color:transparent"></view>
+    <view class="content">
+      <view>{{item.contact.name}}</view>
+      <view class="flex text-grey text-sm"><text class="text-cut">{{item.lastMessage}}</text></view>
+    </view>
+    <view class="action" style="width:150rpx">
+      <view class="text-grey text-sm">{{item.date}}</view>
+      <view class="cu-tag round text-white sm" style="opacity:{{item.newMessages?'1':'0'}}; background-color:#ffa96d">{{item.newMessages}}</view>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{adminModal}}" bindtap="hideAdminModal" id="gray-area" class="flex align-center justify-center" style="position:fixed; top:0rpx; background-color:rgba(0, 0, 0, 0.5); width:100%; height:100%; z-index:10000">
+  <form bindsubmit="loginAdmin" class="cu-dialog" style="background-color:#cbe9d9; border-radius:24rpx; padding-top:30rpx">
+    <view class="cu-form-group text-right" style="border-radius:24rpx; margin:0rpx 30rpx; background-color:white; {{invalidPassword?'border:5rpx solid #ff0000':''}}">
+      <view class="title">{{translate["Password"]}}</view>
+      <input name="password" type="password"></input>
+    </view>
+    <view class="cu-form-group" style="border-top:0rpx; background-color:#cbe9d9">
+      <button form-type="submit" class="text-white cu-btn margin lg" style="width:100%; border-radius:24rpx; background-color:#ffa96d">{{translate["SUBMIT"]}}</button>
+    </view>
+  </form>
+</view>

@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "browse": "/pages/browse/home/home",
+    "sell": "/pages/sell/home/home",
+    "buy": "/pages/buy/home/home",
+    "chats": "/pages/chats/home/home"
+  },
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#cbe9d9"
+}
