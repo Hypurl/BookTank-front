@@ -1,0 +1,40 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/browse/home/home",
+    "pages/sell/home/home",
+    "pages/buy/home/home",
+    "pages/chats/home/home",
+    "pages/browse/product/product",
+    "pages/sell/add/add",
+    "pages/chats/chat/chat",
+    "pages/chats/profile/profile",
+    "pages/sell/all/all",
+    "pages/browse/agreement/agreement",
+    "pages/browse/policy/policy",
+    "components/product/product",
+    "components/register/register",
+    "components/header/header",
+    "components/back-header/back-header",
+    "components/item/item",
+    "components/mini-product/mini-product",
+    "components/product-modal/product-modal",
+    "components/confirm/confirm"
+  ],
+  "usingComponents":{
+    "product": "/components/product/product",
+    "register": "/components/register/register",
+    "header": "/components/header/header",
+    "back-header": "/components/back-header/back-header",
+    "item": "/components/item/item",
+    "mini-product": "/components/mini-product/mini-product",
+    "product-modal": "/components/product-modal/product-modal",
+    "confirm": "/components/confirm/confirm"
+  },
+  "window":{
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
